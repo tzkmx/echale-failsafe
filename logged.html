@@ -1,0 +1,9 @@
+<span class="token"></span>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const searchParams = new URLSearchParams(location.search)
+    if (searchParams.has('code')) {
+	document.querySelector('token').html = searchParams.get('code')
+    }
+})
+</script>
