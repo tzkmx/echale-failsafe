@@ -62,7 +62,7 @@ function statusChangeCallback (res) {
 </div>
 
 <div id="login-button">
-  <button onclick="FB.login">Iniciar sesión</button>
+  <button onclick="FB.login(getLoginState)">Iniciar sesión</button>
 </div>
 
 <div class="login-button-2">
@@ -74,3 +74,4 @@ function statusChangeCallback (res) {
 
 <a href="https://www.facebook.com/v3.3/dialog/oauth?client_id=441297250016235&response_type=token&redirect_uri=https://tzkmx.github.io/echale-failsafe/logged.html">Login To Facebook</a>
 
+<button onclick="FB.logout()">Cerrar sesión</button>
