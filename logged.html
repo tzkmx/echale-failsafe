@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const searchParams = new URLSearchParams(location.search)
     if (searchParams.has('code')) {
-	document.querySelector('token').html = searchParams.get('code')
+	document.querySelector('token').innerHTML = searchParams.get('code')
     }
 })
 </script>
