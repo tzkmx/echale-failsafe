@@ -1,2 +1,76 @@
-<a href="https://www.facebook.com/v3.3/dialog/oauth?client_id=474821193259601&redirect_uri=https://tzkmx.github.io/echale-failsafe/logged.html">Login To Facebook</a>
+<script>
+function getLoginStatus() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response)
+  })
+}
+ 
+function updateLoggedData (html) {
+  document.querySelector('#logged-data').innerHTML = html
+}
+function statusChangeCallback (res) {
+  if (res.status === 'connected') {
+    const { authResponse: {
+      userID,
+      expiresIn,
+      signedRequest,
+      accessToken
+    } } = res
+    const response = `
+      <p>UserID: ${userID}</p>
+      <p>Expires: ${(new Date(expiresIn)).toUTCString()}</p>
+      <pre>Signed: ${signedRequest}</pre>
+      <pre>Token: ${accessToken}</pre>`
+    
+    updateLoggedData(response)
+    
+    return
+  }
+  if (res.status === 'not_authorized') {
+    updateLoggedData('<span>Aplicación no autorizada por el usuario</span>')
+    return
+  }
+  // unknown state
+  FB.logout()
+}
+</script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '441297250016235',
+      cookie     : true,
+      xfbml      : true,
+      version    : '3.3'
+    })
+      
+    FB.AppEvents.logPageView()   
+      
+  }
+
+  ;(function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0]
+     if (d.getElementById(id)) {return}
+     js = d.createElement(s); js.id = id
+     js.src = "https://connect.facebook.net/en_US/sdk.js"
+     js.onload = getLoginStatus
+     fjs.parentNode.insertBefore(js, fjs)
+   }(document, 'script', 'facebook-jssdk'))
+</script>
+
+
+<div id="logged-data">
+</div>
+
+<div id="login-button">
+  <button onclick="FB.login">Iniciar sesión</button>
+</div>
+
+<div class="login-button-2">
+  <fb:login-button 
+    scope="public_profile,email"
+    onlogin="getLoginState()">
+  </fb:login-button>
+</div>
+
+<a href="https://www.facebook.com/v3.3/dialog/oauth?client_id=441297250016235&response_type=token&redirect_uri=https://tzkmx.github.io/echale-failsafe/logged.html">Login To Facebook</a>
 
